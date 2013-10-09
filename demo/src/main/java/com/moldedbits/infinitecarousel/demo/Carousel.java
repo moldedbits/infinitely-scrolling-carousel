@@ -26,11 +26,8 @@ public class Carousel extends InfiniteCarousel {
         t.setTransformationType(Transformation.TYPE_MATRIX);
 
         final Matrix imageMatrix = t.getMatrix();
-
         mCamera.rotateY(child.getLeft() / 20);
-
         mCamera.getMatrix(imageMatrix);
-
         mCamera.restore();
 
         child.invalidate();

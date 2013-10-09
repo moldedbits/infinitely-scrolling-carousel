@@ -5,6 +5,8 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="list_item">List Item</string>
+    <string name="simple_demo">Simple Demo</string>
+    <string name="carousel">Carousel</string>
 
     <string-array name="items">
         <item>Item 1</item>

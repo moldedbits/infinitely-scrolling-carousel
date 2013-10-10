@@ -7,6 +7,12 @@
     <string name="list_item">List Item</string>
     <string name="simple_demo">Simple Demo</string>
     <string name="carousel">Carousel</string>
+    <string name="extended_carousel">Extended Carousel</string>
+    <string name="first_stage">First Stage</string>
+    <string name="second_stage">Second Stage</string>
+    <string name="image_demo">Image Demo</string>
+    <string name="click">Click</string>
+    <string name="click_demo">Click Demo</string>
 
     <string-array name="items">
         <item>Item 1</item>

@@ -13,13 +13,13 @@ import android.view.animation.Transformation;
 
 import com.moldedbits.infinitecarousel.InfiniteCarousel;
 
-public class Carousel extends InfiniteCarousel {
+public class ExtendedCarousel extends InfiniteCarousel {
 
     private Camera mCamera = new Camera();
 
     private int halfScreenWidth;
 
-    public Carousel(Context context, AttributeSet attrs) {
+    public ExtendedCarousel(Context context, AttributeSet attrs) {
         super(context, attrs);
         setStaticTransformationsEnabled(true);
 
@@ -40,13 +40,15 @@ public class Carousel extends InfiniteCarousel {
         mCamera.save();
 
         t.clear();
-        t.setTransformationType(Transformation.TYPE_MATRIX);
+        t.setTransformationType(Transformation.TYPE_BOTH);
 
-        final float rotation = (float) (-1) * (child.getLeft() + child.getWidth() / 2 - halfScreenWidth) / 10f;
+        float alpha = (float) (-1) * (Math.abs(child.getLeft() + child.getWidth() / 2 - halfScreenWidth)) / halfScreenWidth / 2 + 1f;
+        t.setAlpha(alpha);
+
+        final float rotation = (float) (-1) * (child.getLeft() + child.getWidth() / 2 - halfScreenWidth) / 5f;
 
         final Matrix imageMatrix = t.getMatrix();
-        mCamera.rotateY(rotation);
-        mCamera.translate(rotation * 5f, 0, 0);
+        mCamera.rotateX(rotation);
         mCamera.getMatrix(imageMatrix);
         mCamera.restore();
 

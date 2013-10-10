@@ -6,14 +6,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.moldedbits.infinitecarousel.InfiniteCarousel;
 
-public class CarouselFragment extends Fragment {
-
+public class ClickCarouselFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_carousel, container, false);
@@ -33,6 +34,13 @@ public class CarouselFragment extends Fragment {
         carousel.setAdapter(imageAdapter);
 
         carousel.setDynamics(new SimpleDynamics(0.9f));
+
+        carousel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getActivity(), "Item clicked: " + i, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private class ImageAdapter extends ArrayAdapter<String> {
@@ -45,7 +53,7 @@ public class CarouselFragment extends Fragment {
         public View getView(int position, View convertView, ViewGroup parent) {
             if(convertView == null) {
                 LayoutInflater inflater = LayoutInflater.from(getContext());
-                convertView = inflater.inflate(R.layout.listitem_image, parent, false);
+                convertView = inflater.inflate(R.layout.listitem_compound, parent, false);
             }
 
             assert convertView != null;
@@ -54,10 +62,15 @@ public class CarouselFragment extends Fragment {
             int src = position % 2 == 0 ? R.drawable.image : R.drawable.image_red;
             imageView.setImageResource(src);
 
-            TextView text = (TextView) convertView.findViewById(R.id.list_item_image_text);
-            text.setText(String.valueOf(position));
+            Button button = (Button) convertView.findViewById(R.id.list_item_image_button);
+            button.setOnClickListener(ClickCarouselFragment.this);
 
             return convertView;
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+        Toast.makeText(getActivity(), "Button clicked", Toast.LENGTH_SHORT).show();
     }
 }

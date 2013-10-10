@@ -2,14 +2,44 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/first_stage"
+        android:title="@string/first_stage"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+
+    <item
+        android:id="@+id/second_stage"
+        android:title="@string/second_stage"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+
+    <item
         android:id="@+id/demo_simple"
         android:title="@string/simple_demo"
         android:orderInCategory="100"
         android:showAsAction="never" />
 
     <item
+        android:id="@+id/demo_image"
+        android:title="@string/image_demo"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+
+    <item
+        android:id="@+id/demo_click"
+        android:title="@string/click_demo"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+
+    <item
         android:id="@+id/demo_carousel"
         android:title="@string/carousel"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+
+    <item
+        android:id="@+id/demo_extended_carousel"
+        android:title="@string/extended_carousel"
         android:orderInCategory="100"
         android:showAsAction="never" />
 </menu>

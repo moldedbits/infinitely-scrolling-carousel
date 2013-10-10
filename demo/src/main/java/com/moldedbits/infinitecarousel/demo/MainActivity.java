@@ -26,11 +26,26 @@ public class MainActivity extends FragmentActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.first_stage:
+                showFragment(new FirstStageFragment());
+                break;
+            case R.id.second_stage:
+                showFragment(new SecondStageFragment());
+                break;
             case R.id.demo_simple:
                 showFragment(new SimpleDemoFragment());
                 break;
+            case R.id.demo_click:
+                showFragment(new ClickCarouselFragment());
+                break;
+            case R.id.demo_image:
+                showFragment(new ImageDemoFragment());
+                break;
             case R.id.demo_carousel:
                 showFragment(new CarouselFragment());
+                break;
+            case R.id.demo_extended_carousel:
+                showFragment(new ExtendedCarouselFragment());
                 break;
         }
         return true;

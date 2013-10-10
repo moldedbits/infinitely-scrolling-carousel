@@ -5,13 +5,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.moldedbits.infinitecarousel.InfiniteCarousel;
 
-public class SimpleDemoFragment extends Fragment {
+public class ImageDemoFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -23,10 +24,12 @@ public class SimpleDemoFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         InfiniteCarousel carousel = (InfiniteCarousel) getActivity().findViewById(R.id.carousel);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.items, android.R.layout.simple_list_item_1);
 
-        carousel.setAdapter(adapter);
+        String[] items = getResources().getStringArray(R.array.items);
+        Adapter imageAdapter = new ArrayAdapter<String>(getActivity(), R.layout.listitem_image,
+                R.id.list_item_image_text, items);
+
+        carousel.setAdapter(imageAdapter);
 
         carousel.setDynamics(new SimpleDynamics(0.9f));
 

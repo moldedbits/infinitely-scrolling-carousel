@@ -7,16 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.moldedbits.infinitecarousel.InfiniteCarousel;
 
-public class CarouselFragment extends Fragment {
+public class ExtendedCarouselFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_carousel, container, false);
+        return inflater.inflate(R.layout.fragment_extended_carousel, container, false);
     }
 
     @Override
@@ -24,12 +23,15 @@ public class CarouselFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         InfiniteCarousel carousel = (InfiniteCarousel) getActivity().findViewById(R.id.carousel);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
+                R.array.items, android.R.layout.simple_list_item_1);
 
         ImageAdapter imageAdapter = new ImageAdapter(getActivity());
         for(int i=0; i<9; i++) {
             imageAdapter.add(String.valueOf(i));
         }
 
+        //carousel.setAdapter(adapter);
         carousel.setAdapter(imageAdapter);
 
         carousel.setDynamics(new SimpleDynamics(0.9f));
@@ -49,10 +51,6 @@ public class CarouselFragment extends Fragment {
             }
 
             assert convertView != null;
-
-            ImageView imageView = (ImageView) convertView.findViewById(R.id.list_item_image);
-            int src = position % 2 == 0 ? R.drawable.image : R.drawable.image_red;
-            imageView.setImageResource(src);
 
             TextView text = (TextView) convertView.findViewById(R.id.list_item_image_text);
             text.setText(String.valueOf(position));

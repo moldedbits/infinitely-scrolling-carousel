@@ -141,6 +141,22 @@ public class InfiniteCarousel extends AdapterView {
     }
 
     @Override
+    public boolean onInterceptTouchEvent(final MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                startTouch(event);
+                return false;
+
+            case MotionEvent.ACTION_MOVE:
+                return startScrollIfNeeded(event);
+
+            default:
+                endTouch(0);
+                return false;
+        }
+    }
+
+    @Override
     public boolean onTouchEvent(final MotionEvent event) {
         if (getChildCount() == 0) {
             return false;
@@ -379,7 +395,7 @@ public class InfiniteCarousel extends AdapterView {
         final int index = getContainingChildIndex(x, y);
         if (index != INVALID_INDEX) {
             final View itemView = getChildAt(index);
-            final int position = mFirstItemPosition + index;
+            final int position = (mFirstItemPosition + index) % mAdapter.getCount();
             final long id = mAdapter.getItemId(position);
             performItemClick(itemView, position, id);
         }
@@ -392,7 +408,7 @@ public class InfiniteCarousel extends AdapterView {
      */
     private void longClickChild(final int index) {
         final View itemView = getChildAt(index);
-        final int position = mFirstItemPosition + index;
+        final int position = (mFirstItemPosition + index) % mAdapter.getCount();
         final long id = mAdapter.getItemId(position);
         final OnItemLongClickListener listener = getOnItemLongClickListener();
         if (listener != null) {
@@ -478,7 +494,7 @@ public class InfiniteCarousel extends AdapterView {
      * @param offset Offset of the visible area
      */
     private void fillListDown(int rightEdge, final int offset) {
-        while (rightEdge + offset < getWidth()) { // && mLastItemPosition < mAdapter.getCount() - 1) {
+        while (rightEdge + offset < getWidth()) {
             mLastItemPosition++;
             while(mLastItemPosition < 0)
                 mLastItemPosition += mAdapter.getCount();
@@ -497,7 +513,7 @@ public class InfiniteCarousel extends AdapterView {
      * @param offset Offset of the visible area
      */
     private void fillListUp(int leftEdge, final int offset) {
-        while (leftEdge + offset > 0) {// && mFirstItemPosition > 0) {
+        while (leftEdge + offset > 0) {
             mFirstItemPosition--;
             while(mFirstItemPosition < 0)
                 mFirstItemPosition += mAdapter.getCount();
@@ -582,5 +598,14 @@ public class InfiniteCarousel extends AdapterView {
      */
     private int getChildRight(final View child) {
         return child.getRight();
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+
+        //Remove any callbacks
+        removeCallbacks(mDynamicsRunnable);
+        removeCallbacks(mLongPressRunnable);
     }
 }
